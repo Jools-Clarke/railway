@@ -19,7 +19,33 @@ class Station:
     lon: float
     hub: bool
 
-    def distance_to(self):
+    def __init__(self, name:str, region:str, crs:str, lat:float, lon:float, hub:bool):
+        self.name = name
+        self.region = region
+
+        if len(crs) != 3: #validate the CRS code, otherwise raising errors
+            raise ValueError(f"'{crs}' is not a valid CRS code, it must contain 3 characters")
+        elif not crs.isupper():
+            raise ValueError(f"'{crs}' is not a valid CRS code, it must contain only uppercase characters")
+        elif not crs.isalpha():
+            raise ValueError(f"'{crs}' is not a valid CRS code, it can not contain numeric characters")
+        else:
+            self.crs = crs
+
+        if lat > 90 or lat < -90: #validate the latitude, otherwise raising errors
+            raise ValueError(f"{lat} is not a valid latitude value, it must be between -90 and 90")
+        else:
+            self.lat = lat
+
+        if lon > 180 or lon < -180: #validate the longitude, otherwise raising errors
+            raise ValueError(f"{lon} is not a valid longitude value, it must be between -180 and 180")
+        else:
+            self.lon = lon
+           
+        
+        
+    
+    def distance_to(self) -> float:
         raise NotImplementedError
 
 
