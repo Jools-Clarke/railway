@@ -1,17 +1,24 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-def fare_price(distance, different_regions, hubs_in_dest_region):
-    """Returns the fare price for a journey over a given distance,
-    based on the number of regions traversed and the demand for
-    services at the destination region (estimated by regional hub density)"""
+def fare_price(distance: float, different_regions: bool, hubs_in_dest_region: int) -> float:
+    """###Returns the fare price for a journey over a given distance - 
+    based on the number of regions traversed and the demand for services at the destination region (estimated by regional hub density)"""
 
     fare_price = 1 + distance * np.exp(-distance/100) * (1 + (different_regions*hubs_in_dest_region)/10)
 
     return fare_price
 
-
 class Station:
+    """###Station object - 
+    records details about a given station"""
+    name: str
+    region: str
+    crs: str
+    lat: float
+    lon: float
+    hub: bool
+
     def distance_to(self):
         raise NotImplementedError
 
