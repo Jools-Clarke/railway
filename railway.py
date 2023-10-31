@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def fare_price(distance: float, different_regions: bool, hubs_in_dest_region: int) -> float:
-    """###Returns the fare price for a journey over a given distance - 
+    """### Returns the fare price for a journey over a given distance - 
     based on the number of regions traversed and the demand for services at the destination region (estimated by regional hub density)"""
 
     fare_price = 1 + distance * np.exp(-distance/100) * (1 + (different_regions*hubs_in_dest_region)/10)
@@ -10,7 +10,7 @@ def fare_price(distance: float, different_regions: bool, hubs_in_dest_region: in
     return fare_price
 
 class Station:
-    """###Station object - 
+    """### Station object - 
     records details about a given station"""
     name: str
     region: str
@@ -41,8 +41,6 @@ class Station:
             raise ValueError(f"{lon} is not a valid longitude value, it must be between -180 and 180")
         else:
             self.lon = lon
-           
-        
         
     
     def distance_to(self) -> float:
@@ -50,6 +48,16 @@ class Station:
 
 
 class RailNetwork:
+    """### Rail Network Object - 
+    Contains informations about the stations within a rail network"""
+    stations: dict = {}
+
+    def __init__(self, stations:list):
+        if len(stations) != len(set(stations)):
+            raise ValueError(f"there are 1 or more duplicate CRS codes in input list, CRS codes are required to be unique")
+        for station in stations:
+            self.stations[station.crs] = station
+
     def regions(self):
         raise NotImplementedError
 
