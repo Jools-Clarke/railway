@@ -22,6 +22,7 @@ class Station:
     def __init__(self, name:str, region:str, crs:str, lat:float, lon:float, hub:bool):
         self.name = name
         self.region = region
+        self.hub = hub
 
         if len(crs) != 3: #validate the CRS code, otherwise raising errors
             raise ValueError(f"'{crs}' is not a valid CRS code, it must contain 3 characters")
@@ -41,6 +42,7 @@ class Station:
             raise ValueError(f"{lon} is not a valid longitude value, it must be between -180 and 180")
         else:
             self.lon = lon
+
         
     
     def distance_to(self) -> float:
