@@ -61,7 +61,11 @@ class RailNetwork:
             self.stations[station.crs] = station
 
     def regions(self):
-        raise NotImplementedError
+        unique_regions = []
+        for station in self.stations.values():
+            if station.region not in unique_regions:
+                unique_regions.append(station.region)
+        self.regions = unique_regions # TODO I dont know what you want from me!!!
 
     def n_stations(self):
         raise NotImplementedError
