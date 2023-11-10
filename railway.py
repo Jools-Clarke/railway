@@ -77,20 +77,20 @@ class Station:
 class RailNetwork:
     """### Rail Network Object - 
     Contains informations about the stations within a rail network"""
-    stations: dict = {}
-
-    def __init__(self, stations:list):
-        if len(stations) != len(set(stations)):
+    
+    def __init__(self, input_stations:list):
+        self.stations: dict = {}
+        if len(input_stations) != len(set(input_stations)):
             raise ValueError(f"there are 1 or more duplicate CRS codes in input list, CRS codes are required to be unique")
-        for station in stations:
+        for station in input_stations:
             self.stations[station.crs] = station
 
     def regions(self):
-        unique_regions = []
+        self.unique_regions = []
         for station in self.stations.values():
-            if station.region not in unique_regions:
-                unique_regions.append(station.region)
-        return unique_regions # TODO I dont know what you want from me!!!
+            if station.region not in self.unique_regions:
+                self.unique_regions.append(station.region)
+        return self.unique_regions # TODO I dont know what you want from me!!!
 
     def n_stations(self):
         raise NotImplementedError
