@@ -132,7 +132,22 @@ class RailNetwork:
 
 
     def journey_planner(self, start, dest):
-        raise NotImplementedError
+        if start.region == dest.region:
+            return [start, dest]
+        else:
+            self.journey_list: list = [start]
+
+            self.start_hub = self.closest_hub(start)
+            self.dest_hub = self.closest_hub(dest)
+
+            if self.start_hub != start:
+                self.journey_list.append(self.start_hub)
+            if self.dest_hub != dest:
+                self.journey_list.append(self.dest_hub)
+
+            self.journey_list.append(dest)
+            return self.journey_list
+    
 
     def journey_fare(self, start, dest, summary):
         raise NotImplementedError
