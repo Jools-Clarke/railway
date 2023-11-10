@@ -43,7 +43,15 @@ class Station:
         else:
             self.lon = lon
 
-    def __str__(self):
+    def __str__(self) -> str:
+        if self.hub:
+            out = f'Station({self.crs}-{self.name}/{self.region}-hub)'
+        else:
+            out = f'Station({self.crs}-{self.name}/{self.region})'
+
+        return out
+    
+    def __repr__(self) -> str:
         if self.hub:
             out = f'Station({self.crs}-{self.name}/{self.region}-hub)'
         else:
@@ -51,7 +59,7 @@ class Station:
 
         return out
 
-        
+
     def distance_to(self, destination) -> float:
         phi_1 = self.lat
         phi_2 = destination.lat
@@ -82,7 +90,7 @@ class RailNetwork:
         for station in self.stations.values():
             if station.region not in unique_regions:
                 unique_regions.append(station.region)
-        self.regions = unique_regions # TODO I dont know what you want from me!!!
+        return unique_regions # TODO I dont know what you want from me!!!
 
     def n_stations(self):
         raise NotImplementedError
