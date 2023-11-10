@@ -153,12 +153,11 @@ class RailNetwork:
         self.journey_list = self.journey_planner(start, dest)
         self.fare_value = 0
         for self.i in range(len(self.journey_list)-1):
-            print(self.i) # !
             self.d = self.journey_list[self.i].distance_to(self.journey_list[self.i+1])
-            sr = [self.journey_list[self.i].region == self.journey_list[self.i+1].region]
-            hdr = len(self.hub_stations(region=self.journey_list[self.i+1].region))
-            self.fare_value == self.fare_value + fare_price(self.d, not sr, hdr)
-            print(self.fare_value) # !       
+            self.sr = [self.journey_list[self.i].region == self.journey_list[self.i+1].region]
+            self.hdr = len(self.hub_stations(region=self.journey_list[self.i+1].region))
+            self.cur_fare = fare_price(self.d, not self.sr, self.hdr)
+            self.fare_value = self.fare_value + self.cur_fare     
         return self.fare_value
 
     def plot_fares_to(self, crs_code, save, ADDITIONAL_ARGUMENTS):
