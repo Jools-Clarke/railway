@@ -113,7 +113,23 @@ class RailNetwork:
             
 
     def closest_hub(self, s):
-        raise NotImplementedError
+        self.hub_list: list = [] # list of hubs
+        self.d_list: list = [] # distance from hub to station
+        try: 
+            self._ = self.stations[s.crs]
+        except:
+            raise ValueError(f'station {s.crs} is not on this network')
+
+        for station in self.stations.values():
+            if station.hub:
+                self.hub_list.append(station)
+                self.d_list.append(station.distance_to(s))
+
+        if len(self.hub_list) < 1:
+            raise LookupError('No hubs exist in this network')
+        return self.hub_list[np.argmin(self.d_list)]
+
+
 
     def journey_planner(self, start, dest):
         raise NotImplementedError
