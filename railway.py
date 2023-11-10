@@ -93,7 +93,7 @@ class RailNetwork:
         return self.unique_regions # TODO I dont know what you want from me!!!
 
     def n_stations(self):
-        raise NotImplementedError
+        return len(self.stations)
 
     def hub_stations(self, region):
         raise NotImplementedError
