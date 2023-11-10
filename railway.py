@@ -121,12 +121,12 @@ class RailNetwork:
             raise ValueError(f'station {s.crs} is not on this network')
 
         for station in self.stations.values():
-            if station.hub:
+            if station.hub and station.region == s.region:
                 self.hub_list.append(station)
                 self.d_list.append(station.distance_to(s))
 
         if len(self.hub_list) < 1:
-            raise LookupError('No hubs exist in this network')
+            raise LookupError('No hubs exist in this region')
         return self.hub_list[np.argmin(self.d_list)]
 
 
