@@ -95,8 +95,22 @@ class RailNetwork:
     def n_stations(self):
         return len(self.stations)
 
-    def hub_stations(self, region):
-        raise NotImplementedError
+    def hub_stations(self, region=False) -> list:
+        self.hub_list: list = []
+        if not region:
+            for station in self.stations.values():
+                if station.hub:
+                    self.hub_list.append(station)
+        
+        else:
+            for station in self.stations.values():
+                if station.hub and station.region == region:
+                    self.hub_list.append(station)
+        
+        return self.hub_list
+
+
+            
 
     def closest_hub(self, s):
         raise NotImplementedError
