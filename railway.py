@@ -43,6 +43,14 @@ class Station:
         else:
             self.lon = lon
 
+    def __str__(self):
+        if self.hub:
+            out = f'Station({self.crs}-{self.name}/{self.region}-hub)'
+        else:
+            out = f'Station({self.crs}-{self.name}/{self.region})'
+
+        return out
+
         
     
     def distance_to(self) -> float:
