@@ -34,12 +34,12 @@ class Station:
             self.crs = crs
 
         if lat > 90 or lat < -90: #validate the latitude, otherwise raising errors
-            raise ValueError(f"{lat} is not a valid latitude value, it must be between -90 and 90")
+            raise ValueError(f"'{lat}' is not a valid latitude value, it must be between -90 and 90")
         else:
             self.lat = lat
 
         if lon > 180 or lon < -180: #validate the longitude, otherwise raising errors
-            raise ValueError(f"{lon} is not a valid longitude value, it must be between -180 and 180")
+            raise ValueError(f"'{lon}' is not a valid longitude value, it must be between -180 and 180")
         else:
             self.lon = lon
 
@@ -81,7 +81,7 @@ class RailNetwork:
     def __init__(self, input_stations:list):
         self.stations: dict = {}
         if len(input_stations) != len(set(input_stations)):
-            raise ValueError(f"there are 1 or more duplicate CRS codes in input list, CRS codes are required to be unique")
+            raise ValueError("there are 1 or more duplicate CRS codes in input list, CRS codes are required to be unique")
         for station in input_stations:
             self.stations[station.crs] = station
 
