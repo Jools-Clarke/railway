@@ -5,6 +5,8 @@
 # Ignore Mac system files
 .DS_store
 
+# ignore graph plots created
+*.png
 
 # Created by 
 https://www.toptal.com/developers/gitignore/api/python,jupyternotebooks,visualstudiocode,visualstudio
