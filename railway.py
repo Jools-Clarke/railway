@@ -170,12 +170,12 @@ class RailNetwork:
             print(f'Fare: £{self.fare_value:.2f}')
         return self.fare_value
 
-    def plot_fares_to(self, crs_code, save=False, *ADDITIONAL_ARGUMENTS):
+    def plot_fares_to(self, crs_code, save=False, **ADDITIONAL_ARGUMENTS):
         self.dest = self.stations[crs_code]
         self.fare_list = []
         for self.station in self.stations.values():
             self.fare_list.append(self.journey_fare(self.station,self.dest))
-        plt.hist(self.fare_list, *ADDITIONAL_ARGUMENTS)
+        plt.hist(self.fare_list, **ADDITIONAL_ARGUMENTS)
         plt.xlabel("Fare price (£)")
         plt.title(f'Fare prices to {self.dest.name}')
         if save: plt.savefig(f'Fare_prices_to_{self.dest.name.replace(" ","_")}.png')
