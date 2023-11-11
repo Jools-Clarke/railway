@@ -2,7 +2,7 @@ import railway as r
 import utilities as u
 import pytest
 
-
+### raise errors testing ###
 
 #### Station class 
     ### __init__() 
@@ -38,13 +38,19 @@ def test_lon_is_low():
 #### RailNetwork 
     ### __init__() 
         ## input_stations test
-def test_lon_is_high():
+def test_unique_crs():
     a = r.Station("aaaa bbbb","aaaa", "ABC", 1.,1.,0)
     b = r.Station("cccc dddd","aaaa", "ABC", 1.,1.,0)   
     with pytest.raises(ValueError, match="there are 1 or more duplicate CRS codes in input list, CRS codes are required to be unique"):
         _ = r.RailNetwork([a,b])
 
-
+    ### closest_hub() 
+def test_closest_hub():
+    a = r.Station("aaaa bbbb","aaaa", "ABC", 1.,1.,0)
+    b = r.Station("cccc dddd","aaaa", "DEF", 1.,1.,0)
+    rn = r.RailNetwork([a])  
+    with pytest.raises(ValueError, match=r"station * is not on this network"):
+        rn.closest_hub(b)
 
 
 
