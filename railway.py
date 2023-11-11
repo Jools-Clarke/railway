@@ -80,7 +80,10 @@ class RailNetwork:
     
     def __init__(self, input_stations:list):
         self.stations: dict = {}
-        if len(input_stations) != len(set(input_stations)):
+        self.crs_list: list = []
+        for self.station in input_stations:
+            self.crs_list.append(self.station.crs)
+        if len(self.crs_list) != len(set(self.crs_list)):
             raise ValueError("there are 1 or more duplicate CRS codes in input list, CRS codes are required to be unique")
         for station in input_stations:
             self.stations[station.crs] = station
