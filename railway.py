@@ -9,6 +9,7 @@ def fare_price(distance: float, different_regions: bool, hubs_in_dest_region: in
 
     return fare_price
 
+
 class Station:
     """### Station object - 
     records details about a given station"""
@@ -134,27 +135,28 @@ class RailNetwork:
 
 
 
-    def journey_planner(self, start, dest):
-        if start.region == dest.region:
-            return [start, dest]
+    def journey_planner(self, start, dest): #- str
+        if self.stations[start].region == self.stations[dest].region: 
+            return [self.stations[start], self.stations[dest]] #-- obj
         else:
-            self.journey_list: list = [start]
+            self.journey_list: list = [self.stations[start]] #-- obj
 
-            self.start_hub = self.closest_hub(start)
-            self.dest_hub = self.closest_hub(dest)
+            self.start_hub = self.closest_hub(self.stations[start]).crs #- str
+            self.dest_hub = self.closest_hub(self.stations[dest]).crs #- str
 
             if self.start_hub != start:
-                self.journey_list.append(self.start_hub)
+                self.journey_list.append(self.stations[self.start_hub]) #-- obj
             if self.dest_hub != dest:
-                self.journey_list.append(self.dest_hub)
+                self.journey_list.append(self.stations[self.dest_hub]) #-- obj
 
-            self.journey_list.append(dest)
+            self.journey_list.append(self.stations[dest])
             return self.journey_list
     
 
     def journey_fare(self, start, dest, summary:bool=False) -> float:
-        self.journey_list = self.journey_planner(start, dest)
+        self.journey_list = self.journey_planner(self.stations[start].crs, self.stations[dest].crs)
         self.fare_value = 0
+
         for self.i in range(len(self.journey_list)-1):
             self.d = self.journey_list[self.i].distance_to(self.journey_list[self.i+1])
             self.sr = [self.journey_list[self.i].region == self.journey_list[self.i+1].region]
@@ -163,13 +165,13 @@ class RailNetwork:
             self.fare_value = self.fare_value + self.cur_fare 
 
         if summary:
-            print(f'Journey from {start.name} ({start.crs}) to {dest.name} ({dest.crs})')
+            print(f'Journey from {self.stations[start].name} ({self.stations[start].crs}) to {self.stations[dest].name} ({self.stations[dest].crs})')
             print(f'Route: {self.journey_list[0].crs} -> ', end='') 
             try:
                 for self.sta in self.journey_list[1:-1]:
                     print(f'{self.sta.crs} ({self.sta.name}) -> ', end='') 
             except: pass
-            print(f'{self.journey_list[0].crs}')
+            print(f'{self.journey_list[-1].crs}')
             print(f'Fare: £{self.fare_value:.2f}')
         return self.fare_value
 
@@ -177,7 +179,7 @@ class RailNetwork:
         self.dest = self.stations[crs_code]
         self.fare_list = []
         for self.station in self.stations.values():
-            self.fare_list.append(self.journey_fare(self.station,self.dest))
+            self.fare_list.append(self.journey_fare(self.station.crs,self.dest.crs))
         plt.hist(self.fare_list, **ADDITIONAL_ARGUMENTS)
         plt.xlabel("Fare price (£)")
         plt.title(f'Fare prices to {self.dest.name}')

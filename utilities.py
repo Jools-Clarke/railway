@@ -43,7 +43,10 @@ def read_rail_network(filepath:Path):
         except:
             raise ValueError(f'The values of latitude and/or longitude for {params["crs"]} must represent numbers which are convertable to float') 
         try:
+            print(params['hub'], end=" ") #---
             params['hub'] = bool(params['hub'])
+            print(params['hub']) #---
+            
         except:
             raise ValueError(f'The values of hub for {params["crs"]} must represent a bool')
 
