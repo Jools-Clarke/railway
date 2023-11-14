@@ -66,12 +66,17 @@ class Station:
         phi_2 = destination.lat
         llambda_1 = self.lon
         llambda_2 = destination.lon
+
+        phi_1 = np.deg2rad(self.lat)
+        phi_2 = np.deg2rad(destination.lat)
+        llambda_1 = np.deg2rad(self.lon)
+        llambda_2 = np.deg2rad(destination.lon)
         R = 6371 #rad_earth in km
 
-        sin_sq_phi = np.sin((phi_2-phi_1)/2)**2
-        sin_sq_llambda = np.sin((llambda_2-llambda_1)/2)**2
+        sin_sq_phi = (np.sin((phi_2-phi_1)/2))**2
+        sin_sq_llambda = (np.sin((llambda_2-llambda_1)/2))**2
 
-        d = 2*R*np.arcsin(np.sqrt(sin_sq_phi+np.cos(phi_1)*np.cos(phi_2)*sin_sq_llambda))
+        d = 2*R * np.arcsin( np.sqrt( sin_sq_phi + np.cos(phi_1)*np.cos(phi_2)*sin_sq_llambda ))
         return d
 
 
